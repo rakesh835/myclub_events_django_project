@@ -1,0 +1,25 @@
+{% extends 'events/base.html' %}
+
+
+{% block content %}
+
+<center class='mt-4 mb-4'>
+	<h4>Register</h4>
+</center>
+
+<div class="container col-4">
+	<form action="{% url 'register' %}" method="POST">
+	  {% csrf_token %}
+
+	  {{ form.as_p }}
+
+	  <button type="submit" class="btn btn-primary mb-5 text-center">Register</button>
+	  <p>Already have account? <a href="{% url 'login' %}">Login now</a></p>
+	  
+	  {{ form.email.errors }}
+	  {{ form.non_field_errors }}
+
+	</form>
+</div>
+
+{% endblock %}

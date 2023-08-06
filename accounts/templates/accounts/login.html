@@ -1,0 +1,28 @@
+{% extends 'events/base.html' %}
+
+
+{% block content %}
+
+<center>
+	<h4>Login</h4>
+</center>
+
+<div class="container ">
+	<form action="{% url 'login' %}" method="POST">
+	  {% csrf_token %}
+
+	  <div class="mb-3 col-sm-5">
+	    <label for="exampleInputEmail1" class="form-label">Username</label>
+	    <input type="text" class="form-control" name="username" placeholder="username">
+	  </div>
+	  <div class="mb-3 col-sm-5">
+	    <label for="exampleInputPassword1" class="form-label">Password</label>
+	    <input type="password" class="form-control" name="password">
+	  </div>
+
+	  <button type="submit" class="btn btn-primary">Login</button>
+	  <p>Don't have account? <a href="{% url 'register' %}">Register here</p>
+	</form>
+</div>
+
+{% endblock %}

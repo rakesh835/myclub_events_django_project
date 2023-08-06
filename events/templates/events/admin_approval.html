@@ -1,0 +1,122 @@
+{% extends 'events/base.html' %}
+
+
+
+{% block content %}
+
+	<center>
+		<h3 class="mt-4">Admin portal</h3>
+	</center>
+	<br><br>
+	<div class="container col-3">
+		<div class="card mb-5">
+		  	<div class="card-header">
+		    	<h5> Counts</h5>
+		  	</div>
+		  	<div class="card-body">
+			  <ul class="list-group list-group-flush">
+			    <li class="list-group-item"><strong>No. of Events:</strong> {{ event_count }}</li>
+			    <li class="list-group-item"><strong>No. of Venues:</strong> {{ venue_count }}</li>
+			    <li class="list-group-item"><strong>No. of Users:</strong> {{ user_count }}</li>
+			  </ul>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="container col-8">
+	
+  	<div class="card mb-4">
+  		<center>
+  			<h4 class="class mt-2">Venue list</h4>
+  		</center>
+
+  		<div class="card-body">
+			
+			<table class="table table-bordered table-striped table-hover align-middle">
+
+			  <thead class="table-light">
+			    <tr>
+			      <th scope="col">Venue name</th>
+			      <th scope="col">Events</th>
+			    </tr>
+			  </thead>
+
+			  <tbody class='table-group-divider'>
+			  	
+			  	{% for venue in venues %}
+			  		<tr>
+			  			<td>
+			  				<a href="{% url 'venue_detail' venue.id %}" style="text-decoration:None;">{{ venue|capfirst }}</a>
+			  			</td>
+			  			<td>
+							<a href="{% url 'show_events_by_venue' venue.id %}">Event list</a>
+			  			</td>
+			  		</tr>
+			  	{% endfor %}
+
+			  </tbody>
+
+			</table>
+
+		</div>
+	
+	</div>
+
+	</div>
+
+
+  	<div class="container table-responsive col-8">
+	
+  	<div class="card mb-4">
+  		<center>
+  			<h4 class="class mt-2">Update approvals</h4>
+  		</center>
+
+  		<div class="card-body">
+  			
+  			<form action="" method="POST">
+			{% csrf_token %}
+			
+				<table class="table table-bordered table-striped table-hover align-middle">
+
+				  <thead class="table-light">
+				    <tr>
+				      <th scope="col">Event</th>
+				      <th scope="col">Approval</th>
+				    </tr>
+				  </thead>
+
+				  <tbody class='table-group-divider'>
+				  	
+				  	{% for event in events %}
+				  		<tr>
+				  			<td><a href="{% url 'event_detail' event.id %}" style="text-decoration:None;">
+				  			{{ event|capfirst }}</a></td>
+				  			<td>
+				  				{% if event.approved %}
+					  				<div class="form-check">
+				 						<input class="form-check-input" type="checkbox" value="{{ event.id }}" name="boxes" checked>
+									</div>
+								{% else %}
+									<div class="form-check">
+				 						<input class="form-check-input" type="checkbox" value="{{ event.id }}" name="boxes">
+									</div>
+								{% endif %}
+				  			</td>
+				  		</tr>
+				  	{% endfor %}
+
+				  </tbody>
+
+				</table>
+	
+				<input type="submit" class="btn btn-primary btn-sm" value="Update">
+			</form>
+		</div>
+	
+	</div>
+
+	</div>
+
+{% endblock %}

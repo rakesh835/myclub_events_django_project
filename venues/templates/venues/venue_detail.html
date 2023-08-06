@@ -1,0 +1,56 @@
+{% extends 'events/base.html' %}
+
+
+
+{% block content %}
+	
+	<center>
+		<h1>Venue's Detail</h1>
+	</center>
+
+	<div class="container">
+		
+		<div class="card mt-4 mb-4" style="width: 28rem;">
+			<div class="card-header">
+	    		<h5 class="card-title">{{venue.name|capfirst }}</h5>
+	  		</div>
+		  <div class="card-body">	
+		    <p class="card-text"><strong>Address: </strong>{{ venue.address }}</p>
+		    <p class="card-text"><strong>Pin code: </strong>{{ venue.pin_code }}</p>
+		    <p class="card-text"><strong>Phone: </strong>{{ venue.phone }}</p>
+		    <p class="card-text"><strong>Website: </strong><a href="{{ venue.web_address }}">{{ venue.web_address }}</a></p>
+		    <p class="card-text"><strong>Email: </strong>{{ venue.email }}</p>
+		    <p class="card-text"><strong>Owner: </strong>{{ venue_owner }}</p>
+		    {% if venue.venue_image %}
+		    	<img src="{{ venue.venue_image.url }}" class="card-img-top" alt="No image found for this venue">
+		    {% endif %}
+		    <hr>
+		    {% if events %}
+		    	<h5>Events at this venue:</h5>
+		    	{% for event in events %}
+		    		<li><a href="{% url 'event_detail' event.id %}">{{ event }}</a></li>
+		    	{% endfor %}
+
+		    {% else %}
+		    	<h5>No events at this venue are scheduled...</h5>
+		    {% endif %}
+
+		  </div>
+		  
+		  <div class="card-footer">
+		  	{% if user.is_authenticated %}
+				{% if user.id == venue.owner or user.is_superuser %}
+
+		  			<a class="btn btn-secondary btn-sm" type="button" href="{% url 'update_venue' venue.id %}">Update</a>
+		  			<a class="btn btn-danger btn-sm" type="button" href="{% url 'delete_venue' venue.id %}">Delete</a>
+			
+				{% endif %}
+
+			{% endif %}
+		  </div>
+
+		</div>
+	</div>
+
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'events/base.html' %}
+
+
+
+{% block content %}
+
+
+	
+	  <div class="container card mt-2" style="width: 32rem;">
+	    <form action="{% url 'search_events' %}" method="GET" class="d-flex" role="search">
+	      <input class="form-control me-2" type="search" placeholder="Search events..." aria-label="Search" name="keyword">
+	      <button class="btn btn-outline-success" type="submit">Search</button>
+	    </form>
+	  </div>
+	
+	
+	{% if events %}
+		<center>
+			<h4 class="mt-3">
+				Search results..
+			</h4>
+		</center>
+
+		
+		
+		  <div class="container mt-2 mb-4">
+			{% for event in events %}
+
+			<div class="card mt-4" style="width: 28rem;">
+				<div class="card-header">
+		    		<h5 class="card-title">{{ event|capfirst }}</h5>
+		  		</div>
+			  	<div class="card-body">	
+			    	<p class="card-text">{{ event.event_date }}</p>
+			    	<p class="card-text">{{ event.description|truncatechars:80 }}</p>
+			    	<a href="{% url 'event_detail' event.id %}" class="card-link">more details...</a>
+			  	</div>
+		  	
+			  	{% if user == event.manager or user.is_superuser %}
+				  <div class="card-footer">
+		    		<a class="btn btn-secondary btn-sm" type="button" href="{% url 'update_event' event.id %}">Update</a>
+		    		<a class="btn btn-danger btn-sm" type="button" href="{% url 'delete_event' event.id %}">Delete</a>
+		  		  </div>
+		  	  	{% endif %}
+		  	</div>
+
+	  	   {% endfor %}
+		  
+		  </div>
+		
+
+
+		
+
+	{% else %}
+	<center>
+		<div class="mt-5">
+		<h5>No result found. Please try different keyword.</h5>
+		</div>
+	</center>
+
+	{% endif %}
+
+	
+	
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'events/base.html' %}
+
+
+
+{% block content %}
+	
+	<center>
+		<h1>Search Result...</h1>
+	</center>
+
+	{% if venues %}
+
+		{% for venue in venues %}
+
+		<div class="container">
+			
+			<div class="card mt-2" style="width: 24rem;">
+				<div class="card-header">
+		    		<h6><a href="{% url 'venue_detail' venue.id %}" class="card-title" style="text-decoration: none">{{ venue|capfirst }}</a></h6>
+		  		</div>
+			</div>
+		</div>
+
+		{% endfor %}
+
+	{% else %}
+	<center>
+	<div class="mt-5">
+		<h5>No result found. Please try different keyword.</h5>
+	</div>
+	</center>
+
+	{% endif %}
+
+
+{% endblock %}

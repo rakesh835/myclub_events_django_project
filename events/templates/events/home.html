@@ -1,0 +1,43 @@
+{% extends 'events/base.html' %}
+
+
+{% block content %}
+
+<div class="container">
+	<div class="card text-center">
+		<div class="card-header">
+			<h2> Hey, what is the date?</h2>
+		</div>
+		<div class="card-body">
+			<h3 class="card-text"> it's {{ month }}, {{ year }}</h3>
+			<center>
+				{{ cal|safe }}
+			</center>
+		</div>
+		<hr>
+
+		<div class="card-body">
+			
+			<center>
+				{% if event_list %}
+					<h4 class="card-header mb-1" style="width: 18rem;">Events this months </h4>
+					<ul class="list-group" style="width: 18rem;">
+				
+					{% for event in event_list %}
+						<li class="list-group-item"><a href="{% url 'event_detail' event.id %}" style="text-decoration:None"><strong>{{ event }}</strong></a></li>
+					{% endfor %}
+			    
+					</ul>
+				{% else %}
+					<div class="card-body">
+						<p>No events secheduled for this month</p>
+					</div>
+				{% endif %}
+			</center>
+		</div>
+			
+	</div>
+
+</div>
+
+{% endblock %}
