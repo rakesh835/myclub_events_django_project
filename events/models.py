@@ -23,7 +23,7 @@ class Event(models.Model):
 	venue = models.ForeignKey(Venue, blank=True, null=True, on_delete=models.CASCADE)
 	manager = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
 	description = models.TextField(blank=True)
-	attendees = models.ManyToManyField(MyClubUser, blank=True)
+	attendees = models.ManyToManyField(User, blank=True)
 	approved = models.BooleanField(default=False)
 	
 
