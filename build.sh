@@ -7,7 +7,8 @@ pip install -r requirements.txt
 
 python manage.py migrate
 
-if [[  -z $CREATE_SUPERUSER ]];
+if [ "$CREATE_SUPERUSER" ];
+
 then
-  python world_champ_2022/manage.py createsuperuser --no-input
+  python myclub_codemy/manage.py createsuperuser --no-input
 fi
